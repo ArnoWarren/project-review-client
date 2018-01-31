@@ -28,14 +28,14 @@
             </div>
             <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4 left-padding-small">
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.creatorFilter" placeholder="Created By" ng-model-options="{debounce: 500}">
-                    <span class="input-group-addon"  ng-if="vm.creatorFilter" ng-click="vm.creatorFilter = null;vm.filter()">
+                    <input type="text" class="form-control" ng-model="vm.directorFilter" placeholder="Project Director" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.directorFilter" ng-click="vm.directorFilter = null;vm.filter()">
                             <span class="fa fa-remove" style="color:red"></span>
                         </span>
-                    <span class="input-group-addon" ng-click="vm.sortBy('creator')">
-                        <span ng-if="vm.propertyName == 'creator' && !vm.reverse" class="fa fa-caret-down" ></span>
-                        <span ng-if="vm.propertyName == 'creator' && vm.reverse" class="fa fa-caret-up"></span>
-                      <span ng-if="vm.propertyName != 'creator'" class="fa fa-sort"></span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('director')">
+                        <span ng-if="vm.propertyName == 'director' && !vm.reverse" class="fa fa-caret-down" ></span>
+                        <span ng-if="vm.propertyName == 'director' && vm.reverse" class="fa fa-caret-up"></span>
+                      <span ng-if="vm.propertyName != 'director'" class="fa fa-sort"></span>
                   </span>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <i class="badge traffic-light header-status-filter status-{{vm.statusFilter}}" ng-click="vm.statusFilter = toggleStatusFilter(vm.statusFilter)"></i>
             </div>
         </div>
-        <a href="#!/project/{{project.id}}" class="row list-group-item item-row fadeInUp"
+        <a href="#!/projects/{{project.id}}" class="row list-group-item item-row fadeInUp"
              pagination-id="vm.randomId"  total-items="vm.totalCount"
              current-page="vm.currentPage"
              dir-paginate="project in vm.prProjects | itemsPerPage:vm.numberOfElements"
@@ -63,7 +63,7 @@
             <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4 squeeze-div no-overflow" >
                 <i class="glyphicon"  ng-if="vm.showAdvancedLinkList"  ng-class="{'glyphicon-check' : project.selected, 'glyphicon-plus' : !project.selected}"></i>&nbsp;&nbsp;&nbsp;{{project.name}}
             </div>
-            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4  no-overflow">{{project.creator.firstName +' ' + project.creator.surname}}</div>
+            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4  no-overflow">{{project.projectDirector.firstName +' ' + project.projectDirector.surname}}</div>
             <div class="hidden-xs hidden-sm col-md-3 col-lg-3">{{project.lastUpdated}}</div>
             <div class="hidden-xs hidden-sm col-md-1 col-lg-1 text-right" ng-click="$event.preventDefault();vm.toggleStatus(project)"><i class="badge traffic-light status-{{project.status}}"></i></div>
         </a>

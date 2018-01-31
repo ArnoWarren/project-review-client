@@ -103,7 +103,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, $resourceProv
         .state('client', {
             url: '/clients/{id}',
             templateUrl: 'views/prClient/prClient.html',
-            controller: 'Clients.Controller',
+            controller: 'Client.Controller',
             controllerAs: 'vm',
             ncyBreadcrumb: {
                 parent: 'clients',
@@ -139,7 +139,7 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, $resourceProv
         .state('project', {
             url: '/projects/{id}',
             templateUrl: 'views/prProject/prProject.html',
-            controller: 'Projects.Controller',
+            controller: 'Project.Controller',
             controllerAs: 'vm',
             ncyBreadcrumb: {
                 parent: 'projects',

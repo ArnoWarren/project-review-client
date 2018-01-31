@@ -11,9 +11,9 @@
                 <div class="well-sm">
                     <div class="cssload-loader" ng-hide="vm.recentProjectsUpdates"></div>
                     <div class="list-group">
-                        <a ng-click="activeMenu = 'Projects'" href="#!/project/{{user.id}}" class="list-group-item no-overflow" ng-repeat="user in vm.recentProjectsUpdates">
-                            <div class="list-group-item-heading"><h6>{{user.firstName +' ' + user.surname}}</h6></div>
-                            <p class="text-muted">{{user.jobDescription.name}}</p>
+                        <a ng-click="activeMenu = 'Projects'" href="#!/projects/{{project.id}}" class="list-group-item no-overflow" ng-repeat="project in vm.recentProjectsUpdates">
+                            <div class="list-group-item-heading"><h6>{{project.name}}</h6></div>
+                            <p class="text-muted">{{project.client.name}}</p>
                         </a>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="cssload-loader"  ng-hide="vm.recentClientsUpdated" ></div>
 
                     <div class="list-group">
-                        <a href="#!/client/{{clients.id}}" class="list-group-item no-overflow" ng-repeat="clients in vm.recentClientsUpdated">
+                        <a href="#!/clients/{{clients.id}}" class="list-group-item no-overflow" ng-repeat="clients in vm.recentClientsUpdated">
                             <div class="list-group-item-heading"><h6>{{clients.name}}</h6></div>
                             <p>
                                 {{clients.user.firstName +' ' +clients.user.surname}}

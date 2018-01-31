@@ -3,7 +3,7 @@
 <div class="container margin-top-20 " ng-init="vm.init()">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            {{vm.succession.status | translate}} Succession Plan for {{vm.prProject.firstName}} {{vm.prProject.surname}}
+            {{vm.succession.status | translate}} {{vm.prProject.name}}
 
             <div class="text-right col-xs-12" style="margin-top: -20px;">
                 <label class="pull-right" ng-if="vm.rev">Revision {{vm.rev.timestamp | date : 'yyyy-mm-dd HH:mm'}}</label>
@@ -22,14 +22,46 @@
                                 <div class="well well-lg">
                                     <ng-include src="'views/customFields/customFieldsTemplate.html'"></ng-include>
                                     <div class="form-group">
-                                        <label>Project Director</label>
+                                        <label>Client</label>
                                         <div class="input-group">
-                                            <ui-select ng-model="vm.prPrject.projectDirector"
+                                            <ui-select ng-model="vm.prProject.client"
                                                        theme="bootstrap"
                                                        required
                                                        reset-search-input="false"
                                                        title="Choose an evaluation">
-                                                <ui-select-match allow-clear='true' placeholder="Enter an evaluation...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-match allow-clear='true' placeholder="Enter a project director...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="client in vm.client  | filter : $select.search track by client.id">
+                                                    <div ng-bind-html="client.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project Director</label>
+                                        <div class="input-group">
+                                            <ui-select ng-model="vm.prProject.projectDirector"
+                                                       theme="bootstrap"
+                                                       required
+                                                       reset-search-input="false"
+                                                       title="Choose an evaluation">
+                                                <ui-select-match allow-clear='true' placeholder="Enter a project director...">{{$select.selected.firstName +' ' + $select.selected.surname}}</ui-select-match>
+                                                <ui-select-choices repeat="users in vm.users  | filter : $select.search track by user.id">
+                                                    <div ng-bind-html="user.firstName +' '+user.surname | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project Leader</label>
+                                        <div class="input-group">
+                                            <ui-select ng-model="vm.prProject.projectLeader"
+                                                       theme="bootstrap"
+                                                       required
+                                                       reset-search-input="false"
+                                                       title="Choose an evaluation">
+                                                <ui-select-match allow-clear='true' placeholder="Enter an evaluation...">{{$select.selected.firstName + ' '+ $select.selected.surname}}</ui-select-match>
                                                 <ui-select-choices repeat="evaluation in vm.evaluations  | filter : $select.search track by evaluation.id">
                                                     <div ng-bind-html="evaluation.name | highlight: $select.search"></div>
                                                     <small>
@@ -41,14 +73,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Project Leader</label>
+                                        <label>Project Manager</label>
                                         <div class="input-group">
-                                            <ui-select ng-model="vm.prPrject.projectDirector"
+                                            <ui-select ng-model="vm.prProject.projectManager"
                                                        theme="bootstrap"
                                                        required
                                                        reset-search-input="false"
                                                        title="Choose an evaluation">
-                                                <ui-select-match allow-clear='true' placeholder="Enter an evaluation...">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-match allow-clear='true' placeholder="Enter an evaluation...">{{$select.selected.firstName + ' '+ $select.selected.surname}}</ui-select-match>
                                                 <ui-select-choices repeat="evaluation in vm.evaluations  | filter : $select.search track by evaluation.id">
                                                     <div ng-bind-html="evaluation.name | highlight: $select.search"></div>
                                                     <small>
@@ -78,16 +110,163 @@
                             </div>
 
                         </div>
+                            <div class="col-xs-6">
+                                <h5><i class="fa  fa-bars"></i> Properties</h5>
+                                <div class="well well-lg">
+                                    <div class="form-group">
+                                        <label>Service Line</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.serviceLine"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Group</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.productGroup"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project Type</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.projectType"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Risk Category</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.risk"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project Start Date</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.projectStartDate"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Project End Date</label>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="vm.prProject.projectEndDate"  required>
+                                            <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </uib-tab>
 
                 <uib-tab index="1">
                     <uib-tab-heading class="ng-scope">
-                        <i class="badge">Stuff here</i>
+                        Values
                     </uib-tab-heading>
 
                     <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5><i class="fa  fa-bars"></i> Properties</h5>
+                                <div class="well well-lg">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <label class="form-control">{{vm.prProject.status | translate}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Recognised Revenue Ltd</label>
+                                        <label class="form-control">{{vm.prProject.recognisedRevenueLTD}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Invoiced To Date</label>
+                                        <label class="form-control">{{vm.prProject.invoicedToDate}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Currency</label>
+                                        <label class="form-control">{{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contract Value</label>
+                                        <label class="form-control">{{vm.prProject.contractValue}} {{vm.prProject.currency}}</label>
+                                    </div>
 
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <h5><i class="fa  fa-bars"></i> As Sold</h5>
+                                <div class="well well-lg">
+                                    <div class="form-group">
+                                        <label>As Sold Order Value</label>
+                                        <label class="form-control">{{vm.prProject.asSoldOrderValue}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>As Sold Contingency</label>
+                                        <label class="form-control">{{vm.prProject.asSoldContingencyValue}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>As Sold Labour</label>
+                                        <label class="form-control">{{vm.prProject.asSoldLabourValue}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>As Sold Expenses</label>
+                                        <label class="form-control">{{vm.prProject.asSoldExpensesValue}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>As Sold Materials</label>
+                                        <label class="form-control">{{vm.prProject.asSoldMaterialsValue}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5><i class="fa  fa-bars"></i> Cost</h5>
+                                <div class="well well-lg">
+                                    <div class="form-group">
+                                        <label>Cost To Date Contingency</label>
+                                        <label class="form-control">{{vm.prProject.costToDateContingency}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cost to Date Labour</label>
+                                        <label class="form-control">{{vm.prProject.costToDateLabour}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cost to Date Expenses</label>
+                                        <label class="form-control">{{vm.prProject.costToDateExpenses}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cost to Date Materials</label>
+                                        <label class="form-control">{{vm.prProject.costToDateMaterials}} {{vm.prProject.currency}}</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <h5><i class="fa  fa-bars"></i> Forecast</h5>
+                                <div class="well well-lg">
+                                    <div class="form-group">
+                                        <label>Forecast Contingency</label>
+                                        <label class="form-control">{{vm.prProject.forecastContingency}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Forecast Labour</label>
+                                        <label class="form-control">{{vm.prProject.forecastLabour}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Forecast Expenses</label>
+                                        <label class="form-control">{{vm.prProject.forecastExpenses}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Forecast Materials</label>
+                                        <label class="form-control">{{vm.prProject.forecastMaterials}} {{vm.prProject.currency}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </uib-tab>
                 <uib-tab index="2" heading='Stuff'>
