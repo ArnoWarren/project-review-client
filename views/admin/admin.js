@@ -4,7 +4,7 @@ angular
     .module('myApp')
     .controller('Admin.Controller', Controller);
 
-function Controller($uibModal, $window,$timeout,$rootScope, $scope,$location, $stateParams, Restangular, server, $http) {
+function Controller($uibModal, $window,$timeout,$rootScope, $scope,$location, $stateParams, Restangular, server, Upload) {
   var vm = this;
 
   vm.back = function(){
@@ -19,7 +19,7 @@ function Controller($uibModal, $window,$timeout,$rootScope, $scope,$location, $s
     vm.importPMR = function(file){
         if (file) {
             Upload.upload({
-                url: server.uri + '/pr/importPMR',
+                url: server.uri + '/pr/project/import',
                 data: {file: file}
             }).then(function (resp) {
                 console.log(resp);
