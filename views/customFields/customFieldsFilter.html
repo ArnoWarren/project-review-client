@@ -1,0 +1,85 @@
+<div class="well clearfix info-well">
+    <p class="lead">Advanced Filters</p>
+    <hr>
+<div class="col-xs-6 margin-top-10" ng-repeat="customField in vm.customFieldFilterService.customFields">
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">{{customField.name}}</span>
+        <input class="form-control" ng-change="vm.customFieldFilterService.setCustomFieldFilterOption({value:vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]},customField)"
+               ng-model="vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]"
+               ng-model-options="{debounce: 500}"
+               type="text"
+               ng-if="!customField.dateField && !customField.customFieldOptions">
+        <i class="input-group-addon glyphicon glyphicon-remove" style="color: red;margin-top: 3px;" aria-hidden="true"
+           ng-if="!customField.dateField && !customField.customFieldOptions"
+           ng-click="vm.customFieldFilterService.unSetCustomFieldFilterOption(customField);vm.customFieldFilterService.filter()"
+           ng-show="vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]"></i>
+
+            <label type="text"
+                   ng-if="customField.dateField"
+                   class="form-control" aria-describedby="basic-addon3" uib-datepicker-popup="dd-MM-yyyy"
+                   ng-change="vm.customFieldFilterService.setCustomFieldFilterOption({value:vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]},customField)"
+                   ng-model="vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]"
+                   is-open="datePickerOpen[customField.name]"
+                   datepicker-options="vm.customFieldFilterService.dateOptions"
+                   close-text="Close">{{vm.customFieldFilterService.customFieldFilters['cf_'+customField.id] | date:"dd-MM-yyyy"}}
+                <i class="glyphicon pull-right glyphicon-remove" style="color: red;margin-top: 3px;" aria-hidden="true"
+                   ng-click="vm.customFieldFilterService.unSetCustomFieldFilterOption(customField)"
+                   ng-show="vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]"></i>
+            </label>
+            <span class="input-group-btn" ng-if="customField.dateField">
+              <button type="button" class="btn btn-default" ng-click="toggleCustomFieldDateSelector(customField)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+
+
+        <ui-select ng-model="vm.customFieldFilterService.customFieldFilters['cf_'+customField.id]"
+                   theme="bootstrap"
+                   aria-describedby="basic-addon3"
+                   on-select="vm.customFieldFilterService.setCustomFieldFilterOption($item,customField)"
+                   ng-if="customField.customFieldOptions && !customField.dateField && !customField.textArea"
+                   reset-search-input="false"
+                   title="Select a {{customField.name}}">
+            <ui-select-match allow-clear='true' ng-click="vm.customFieldFilterService.unSetCustomFieldFilterOption(customField)" placeholder="Select a {{customField.name}}...">{{$select.selected}}</ui-select-match>
+            <ui-select-no-choice>
+                No {{customField.name}}
+            </ui-select-no-choice>
+            <ui-select-choices repeat="customFieldOption in customField.customFieldOptions track by customFieldOption.value" remove-selected="true">
+                <div ng-bind-html="customFieldOption.value | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+
+</div>
+    <div ng-if="vm.showJobDescriptionFilter" class="col-xs-6 margin-top-10">
+        <div class="input-group">
+            <span class="input-group-addon">Job Role</span>
+            <ui-select ng-model="vm.jobDescriptionFilter"
+                       theme="bootstrap"
+                       reset-search-input="false"
+                       title="Filter by a job role">
+                <ui-select-match  allow-clear='true' placeholder="Filter by a job role...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="jobDescription in vm.jobDescriptions | filter: $select.search  track by jobDescription.id"
+                                   refresh="vm.loadJobDescriptions($select.search)"
+                                   refresh-delay="500">
+                    <div ng-bind-html="jobDescription.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <div ng-if="vm.showJobDescriptionFilter" class="col-xs-6 margin-top-10">
+        <div class="input-group">
+            <span class="input-group-addon">Manager</span>
+            <ui-select ng-model="vm.managerFilter"
+                       theme="bootstrap"
+                       reset-search-input="false"
+                       title="Filter by manager">
+                <ui-select-match  allow-clear='true' placeholder="Filter by manager...">{{$select.selected.firstName +' ' +$select.selected.surname }}</ui-select-match>
+                <ui-select-choices repeat="manager in vm.managers | filter: $select.search  track by manager.id"
+                                   refresh="vm.loadManagers($select.search)"
+                                   refresh-delay="500">
+                    <div ng-bind-html="manager.firstName +' ' + manager.surname | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+</div>

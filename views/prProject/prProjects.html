@@ -1,0 +1,86 @@
+<div class="container margin-top-20 " data-ng-init="vm.init()">
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h4>
+                <i class="badge">{{vm.totalCount}}</i>
+                Projects
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary action" ng-click="vm.back()"><i class="glyphicon glyphicon-remove"></i> Back</button>
+                    <a href="#!/project/0" class="btn btn-sm action btn-primary"><i class="fa fa-plus"></i> Add</a>
+                </div>
+            </h4>
+        </div>
+        <div class="panel-body" style="padding: 10px 30px;">
+        <div class="row list-group-item fadeInDownBig" ng-show="vm.prProjects">
+            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.nameFilter" placeholder="Plan Name" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.nameFilter" ng-click="vm.nameFilter = null;vm.filter()">
+                            <span class="fa fa-remove" style="color:red"></span>
+                        </span>
+
+                    <span class="input-group-addon" ng-click="vm.sortBy('name')">
+                        <span ng-if="vm.propertyName == 'name' && !vm.reverse" class="fa fa-caret-down" ></span>
+                        <span ng-if="vm.propertyName == 'name' && vm.reverse" class="fa fa-caret-up"></span>
+                      <span ng-if="vm.propertyName != 'name'" class="fa fa-sort"></span>
+                  </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.creatorFilter" placeholder="Created By" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.creatorFilter" ng-click="vm.creatorFilter = null;vm.filter()">
+                            <span class="fa fa-remove" style="color:red"></span>
+                        </span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('creator')">
+                        <span ng-if="vm.propertyName == 'creator' && !vm.reverse" class="fa fa-caret-down" ></span>
+                        <span ng-if="vm.propertyName == 'creator' && vm.reverse" class="fa fa-caret-up"></span>
+                      <span ng-if="vm.propertyName != 'creator'" class="fa fa-sort"></span>
+                  </span>
+                </div>
+            </div>
+            <div class="hidden-xs hidden-sm  col-md-3 col-lg-3 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.typeFilter"  placeholder="Last Updated" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon" ng-click="vm.sortBy('lastUpdated')">
+                        <span ng-if="vm.propertyName == 'lastUpdated' && !vm.reverse" class="fa fa-caret-down" ></span>
+                        <span ng-if="vm.propertyName == 'lastUpdated' && vm.reverse" class="fa fa-caret-up"></span>
+                      <span ng-if="vm.propertyName != 'lastUpdated'" class="fa fa-sort"></span>
+                  </span>
+                </div>
+
+            </div>
+
+            <div class="hidden-xs hidden-sm col-md-1 col-lg-1 text-right">
+                <i class="badge traffic-light header-status-filter status-{{vm.statusFilter}}" ng-click="vm.statusFilter = toggleStatusFilter(vm.statusFilter)"></i>
+            </div>
+        </div>
+        <a href="#!/project/{{project.id}}" class="row list-group-item item-row fadeInUp"
+             pagination-id="vm.randomId"  total-items="vm.totalCount"
+             current-page="vm.currentPage"
+             dir-paginate="project in vm.prProjects | itemsPerPage:vm.numberOfElements"
+             ng-class="{'active' : project.selected}" >
+            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4 squeeze-div no-overflow" >
+                <i class="glyphicon"  ng-if="vm.showAdvancedLinkList"  ng-class="{'glyphicon-check' : project.selected, 'glyphicon-plus' : !project.selected}"></i>&nbsp;&nbsp;&nbsp;{{project.name}}
+            </div>
+            <div class="col-xs-6 col-sm-6  col-md-4 col-lg-4  no-overflow">{{project.creator.firstName +' ' + project.creator.surname}}</div>
+            <div class="hidden-xs hidden-sm col-md-3 col-lg-3">{{project.lastUpdated}}</div>
+            <div class="hidden-xs hidden-sm col-md-1 col-lg-1 text-right" ng-click="$event.preventDefault();vm.toggleStatus(project)"><i class="badge traffic-light status-{{project.status}}"></i></div>
+        </a>
+    </div>
+    <div class="text-center" ng-show="vm.prProjects">
+        <dir-pagination-controls max-size="15" on-page-change="vm.pageChanged(newPageNumber)" pagination-id="vm.randomId" ></dir-pagination-controls>
+    </div>
+
+
+
+
+    <div class="text-center" ng-if="getCurrentUser().username == 'gn'">
+            <span ng-click="vm.showPony = !vm.showPony">.</span>
+            <img src="img/pony.gif" ng-if="vm.showPony">
+    </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,18 @@
+<modal class="insert-table">
+    <header class="modal-header">
+        <h1>Insert Table</h1>
+    </header>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="numberOfRows">Number of Rows</label>
+            <input type="number" class="form-control" ng-model="newtable.row"  placeholder="Row count" name="row" required="" id="numberOfRows" />
+        </div>
+        <div class="form-group">
+            <label for="NumberOfColumns">Number of Columns</label>
+            <input type="number" class="form-control" ng-model="newtable.col" placeholder="Column count" name="col" required="" id="NumberOfColumns" />
+        </div>
+    </div>
+    <footer class="modal-footer">
+        <button class="btn btn-default" ng-disabled="newTable.row == 0 || newTable.col == 0" ng-click="insertTable()">Insert</button>
+    </footer>
+</modal>

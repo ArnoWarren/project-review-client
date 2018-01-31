@@ -1,0 +1,111 @@
+<ng-include src="'views/notifications/growl.html'"></ng-include>
+
+<div class="margin-top-20 container-fluid"  data-ng-init="vm.init()">
+    <div class="col-xs-12 col-lg-3"  ng-if="hasAnyPermission(['hr', 'super'])">
+        <div class="panel panel-primary dashboard-summary-grid" >
+            <div class="panel-heading">
+                {{vm.projectCount}} Projects
+                <i class="fa fa-building pull-right"></i>
+            </div>
+            <div class="panel-body" style="">
+                <div class="well-sm">
+                    <div class="cssload-loader" ng-hide="vm.recentProjectsUpdates"></div>
+                    <div class="list-group">
+                        <a ng-click="activeMenu = 'Projects'" href="#!/project/{{user.id}}" class="list-group-item no-overflow" ng-repeat="user in vm.recentProjectsUpdates">
+                            <div class="list-group-item-heading"><h6>{{user.firstName +' ' + user.surname}}</h6></div>
+                            <p class="text-muted">{{user.jobDescription.name}}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="uib-button-bar text-right">
+                    <a href="#!/projects" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Project'"><i class="fa fa-list"></i> List</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-lg-3"  ng-if="hasAnyPermission(['manager', 'hr', 'super'])">
+        <div class="panel panel-primary dashboard-summary-grid">
+            <div class="panel-heading">
+                {{vm.clientsCount}} Clients
+                <i class="fa fa-columns pull-right"></i>
+            </div>
+            <div class="panel-body" style="">
+                <div class="well-sm">
+                    <div class="cssload-loader"  ng-hide="vm.recentClientsUpdated" ></div>
+
+                    <div class="list-group">
+                        <a href="#!/client/{{clients.id}}" class="list-group-item no-overflow" ng-repeat="clients in vm.recentClientsUpdated">
+                            <div class="list-group-item-heading"><h6>{{clients.name}}</h6></div>
+                            <p>
+                                {{clients.user.firstName +' ' +clients.user.surname}}
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="uib-button-bar text-right">
+                    <a href="#!/clients" class="btn btn-sm btn-primary" ><i class="fa fa-list"></i> List</a>
+                    <a href="#!/client/0" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-xs-12 col-lg-3">
+        <div class="panel panel-primary dashboard-summary-grid" >
+            <div class="panel-heading">
+                {{vm.notificationCount}} Notifications
+                <i class="fa fa-inbox pull-right"></i>
+            </div>
+            <div class="panel-body" style="">
+                <div class="well-sm">
+                    <div class="cssload-loader" ng-hide="vm.recentNotificationUpdated || vm.recentNotificationUpdated == 0"></div>
+                    <div class="list-group">
+                        <div class="list-group-item" ng-repeat="notification in vm.recentNotificationUpdated">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <span ng-click="notification.show = !notification.show" class="clickable">
+                                        {{notification.name}}
+                                    </span>
+                                </div>
+                                <div class="col-xs-1">
+                                    <span class="btn btn-sm btn-default" ng-click="$event.preventDefault();vm.deleteMessage(notification)"><i class="glyphicon glyphicon-trash"></i></span>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div ng-bind-html="notification.message" ng-if="notification.show"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 text-muted">
+                                    <a href="#!/talent/{{notification.creator.id}}" class="fa fa-user-circle clickable"></a> {{notification.creator.firstName}} {{notification.creator.lastName}}
+                                </div>
+                                <div class="col-xs-6 text-right text-muted">
+                                    {{notification.createdOn}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="uib-button-bar text-right">
+                    <a href="#!/notifications" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Notification'"><i class="fa fa-list"></i> List</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

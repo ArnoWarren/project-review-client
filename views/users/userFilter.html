@@ -1,0 +1,85 @@
+<div class="panel-body crud-list">
+
+    <div class="list-group" >
+        <div ng-show="vm.showFilter">
+            <div class="row">
+                <ng-include src="'views/customFields/customFieldsFilter.html'"></ng-include>
+            </div>
+
+        </div>
+        <div class="grid-loading"  ng-hide="vm.users" >
+            <div class="cssload-loader" ng-hide="vm.users"></div>
+        </div>
+
+        <div class="row list-group-item" ng-hide="!vm.users">
+            <div class="col-xs-6 col-sm-6  col-md-3 col-lg-3 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.firstNameFilter" placeholder="First Name" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.firstNameFilter" ng-click="vm.firstNameFilter = null;vm.filter()">
+                                <span class="fa fa-remove" style="color:red"></span>
+                    </span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('firstName')">
+                            <span ng-if="vm.propertyName == 'firstName' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'firstName' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'firstName'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6  col-md-3 col-lg-3 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.surnameFilter" placeholder="Surname" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.surnameFilter" ng-click="vm.surnameFilter = null;vm.filter()">
+                                <span class="fa fa-remove" style="color:red"></span>
+                        </span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('surname')">
+                            <span ng-if="vm.propertyName == 'surname' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'surname' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'surname'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="hidden-xs hidden-sm col-md-2 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.loginFilter"  placeholder="Login" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.loginFilter" ng-click="vm.loginFilter = null;vm.filter()">
+                                <span class="fa fa-remove" style="color:red"></span>
+                            </span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('login')">
+                            <span ng-if="vm.propertyName == 'login' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'login' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'login'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="hidden-xs hidden-sm col-md-3 left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.emailFilter" placeholder="Email" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.emailFilter" ng-click="vm.emailFilter = null;vm.filter()">
+                                <span class="fa fa-remove" style="color:red"></span>
+                            </span>
+                    <span class="input-group-addon" ng-click="vm.sortBy('email')">
+                            <span ng-if="vm.propertyName == 'emailAddress' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'emailAddress' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'emailAddress'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="col-xs-1 hidden-xs text-right">
+                <i class="badge traffic-light header-status-filter status-{{vm.statusFilter}}" ng-click="$event.preventDefault();vm.statusFilter = toggleStatusFilter(vm.statusFilter);"></i>
+            </div>
+        </div>
+
+        <div class="row list-group-item item-row" ng-class="{'active' : user.selected}"  pagination-id="vm.randomId" total-items="vm.totalCount" current-page="vm.currentPage" dir-paginate="user in vm.users | itemsPerPage:vm.numberOfElements">
+            <span ng-click="$event.preventDefault();vm.showUser(user)" >
+            <div class="col-xs-6 col-sm-6  col-md-3 col-lg-3"><i class="glyphicon"  ng-if="vm.showAdvancedLinkList"  ng-class="{'glyphicon-check' : user.selected, 'glyphicon-plus' : !user.selected}"></i>&nbsp;&nbsp;&nbsp;{{user.firstName}}</div>
+                <div class="col-xs-6 col-sm-6  col-md-3 col-lg-3" style="text-overflow: ellipsis;overflow: hidden;">{{user.surname}}</div>
+                <div class="hidden-xs hidden-sm col-md-2" style="text-overflow: ellipsis;overflow: hidden;">{{user.login}}</div>
+                <div class="hidden-xs hidden-sm col-md-3" style="text-overflow: ellipsis;overflow: hidden;">{{user.emailAddress}}</div>
+            </span>
+                <div class="hidden-xs hidden-sm col-md-1 hidden-xs text-right" ng-click="$event.preventDefault();vm.toggleStatus(user)"><i class="badge traffic-light status-{{user.userStatus.name}}"></i></div>
+        </div>
+    </div>
+    <div class="text-center" ng-show="vm.users">
+        <dir-pagination-controls max-size="15" pagination-id="vm.randomId"   on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+    </div>
+</div>

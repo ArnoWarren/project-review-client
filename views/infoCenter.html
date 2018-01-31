@@ -1,0 +1,68 @@
+<div class="info-panel" ng-show="showInfoPanel" click-outside ng-cloak>
+    <i class="pull-left fa fa-2x fa-bars clickable" ng-click="toggleInfoPanel()" style="color: white;margin-left: 15px;margin-top: 15px;"></i>
+    <div class="text-center">
+        <div>
+            <div uib-popover="Import an avatar by dropping it here or click to select one" popover-placement="top" popover-trigger="'mouseenter'" popover-append-to-body="true"
+                 name="avatarImportFile"
+                 ngf-drop="importAvatar($file)" ngf-select="importAvatar($file)"
+                 ngf-drag-over-class="'dragover'"
+                 accept="image/*">
+
+                <img ng-src="{{getCurrentUser().avatar || 'img/avatar.png'}}" class="avatar-large clickable" onerror="this.src = 'img/avatar.png'">
+            </div>
+            <uib-progressbar class="progress" ng-if="avatarUploadProgress > 0" value="avatarUploadProgress" type="success" style="margin:20px"><span style="color:white; white-space:nowrap;">{{avatarUploadProgress}}%</span></uib-progressbar>
+
+        </div>
+
+        <h2 style="color: white;">{{getCurrentUser().name}}</h2>
+    </div>
+    <div class="info-form-group" ng-if="getCurrentUser().manager">
+        <div class="row">
+            <div class="col-xs-12">
+                <label>My manager is {{getCurrentUser().manager}}</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="list-group" style="padding: 15px;">
+        <div class="list-group-item"  ng-repeat="customFieldValue in getCurrentUser().customFields">
+            <div class="row">
+        <div class="col-xs-6">
+            <label>{{customFieldValue.customField.name}}</label>
+        </div>
+        <div class="col-xs-6">
+            {{customFieldValue.value}}
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-form-group">
+        <label class="clickable" ng-click="showPasswordResetForm = !showPasswordResetForm">Change Password <i class="fa fa-lock"></i> </label>
+        <div class="well" style="color:#525151" ng-show="showPasswordResetForm">
+            <div class="form-group" ng-hide="forgottenPassword">
+                <label>Current Password</label>
+                <input type="password" class="form-control" ng-model="passwordReset.currentPassword">
+            </div>
+
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" class="form-control" ng-model="passwordReset.newPassword">
+            </div>
+
+            <div class="form-group">
+                <label>Repeat new Password</label>
+                <input type="password" class="form-control" ng-model="passwordReset.newPasswordRepeat">
+            </div>
+
+            <button class="btn btn-success" ng-click="changePassword(passwordReset)" ng-disabled="(!passwordReset.currentPassword  && !forgottenPassword )|| passwordReset.newPasswordRepeat != passwordReset.newPassword || (!passwordReset.newPassword || passwordReset.newPassword.length < 4)"><i class="fa fa-lock"></i> Change Password</button>
+        </div>
+
+        <a href="#!/login"><label class="clickable" style="color: white;width: 100%">Logout <i class="glyphicon glyphicon-log-out"></i></label> </a>
+    </div>
+
+
+</div>
+
+

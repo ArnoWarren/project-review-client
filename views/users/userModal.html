@@ -1,0 +1,13 @@
+<div class="modal-header" ng-init="vm.init()">
+    <div class="col-xs-5">
+    New User
+    </div>
+    <div class="col-xs-7">
+    <div class="text-right">
+            <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></uib-alert>
+        <button class="btn btn-sm btn-primary" ng-click="vm.items.close();"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+        <button class="btn btn-sm btn-success" ng-click="vm.save();vm.items.done();"><i class="fa fa-save"></i> Save</button>
+    </div>
+    </div>
+</div>
+<ng-include src="'views/users/userForm.html'"></ng-include>

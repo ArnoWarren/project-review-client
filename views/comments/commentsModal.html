@@ -1,0 +1,44 @@
+<script type="text/ng-template" id="commentsModal.html">
+    <div class="panel panel-primary" style="margin-bottom: 0;">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-comment"></span> Comments
+            <span class="pull-right">
+                            <button class="btn btn-sm btn-primary action" ng-click="vm.close()"><i
+                                    class="glyphicon glyphicon-remove"></i> Close</button>
+                        </span>
+        </div>
+        <div class="panel-body">
+            <ul class="chat">
+
+                <li class="clearfix right {{vm.user.id == comment.createdBy.id ? 'right' : 'left'}}" ng-repeat="comment in vm.comments track by $index">
+                                <span class="chat-img {{vm.user.id == comment.createdBy.id ? 'pull-right' : 'pull-left'}}">
+                                    <img src="http://placehold.it/50/FA6F57/fff&text={{vm.user.id == comment.createdBy.id ? 'ME' : comment.createdBy.firstName.substr(0,2).toUpperCase()}}" alt="User Avatar" class="img-circle"/>
+                                </span>
+
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <strong class="primary-font">{{comment.createdBy.fullName}}</strong>
+                            <small class="text-muted pull-right">
+                                <span class="glyphicon glyphicon-time"></span>{{comment.lastUpdated}}
+                            </small>
+                        </div>
+                        <p>
+                            {{comment.note}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input id="btn-input" ng-model="vm.commentText" type="text" class="form-control input-sm" autofocus
+                       placeholder="Type your comment here..."/>
+                <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="vm.ok(vm.commentText)">
+                                Add Comment</button>
+                        </span>
+            </div>
+        </div>
+    </div>
+
+</script>

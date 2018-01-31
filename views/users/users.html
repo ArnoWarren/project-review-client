@@ -1,0 +1,16 @@
+<div class="container margin-top-20 " data-ng-init="vm.init()">
+  <div class="panel panel-primary">
+    <div class="panel-heading clearfix">
+        <h4>Manage Users <i class="badge">{{vm.totalCount}}</i>
+            <div class="pull-right">
+                <button class="btn btn-sm btn-primary action" ng-click="vm.showFilter = !vm.showFilter"><i class="glyphicon glyphicon-filter"></i> Filter</button>
+                <button class="btn btn-sm btn-primary action" ng-click="vm.back()"><i class="glyphicon glyphicon-remove"></i> Back</button>
+                <a href="#!/users/0" class="btn btn-sm action btn-primary"><i class="glyphicon glyphicon-plus"></i> Add</a>
+            </div>
+
+        </h4>
+    </div>
+      <ng-include src="'views/users/userFilter.html'"></ng-include>
+
+    </div>
+</div>

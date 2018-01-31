@@ -1,0 +1,25 @@
+<script type="text/ng-template" id="inlineCommentsModal.html">
+    <div class="modal-header" style="background: white">
+        Add a comment <br><span class="text-muted" ng-if="!vm.selectedText"> <i class="fa fa-info-circle"></i> select text in the editor to highlight section</span>
+        <span class="pull-right">
+            <button class="btn btn-sm btn-primary action" ng-click="vm.addComment()" ng-disabled="!vm.comment"><i class="glyphicon glyphicon-plus"></i> Save</button>
+            <button class="btn btn-sm btn-primary action" ng-click="vm.close()"><i class="glyphicon glyphicon-remove"></i> Cancel</button>
+        </span>
+    </div>
+
+    <div class="modal-body" style="overflow-y: scroll">
+        <div class="list-group">
+            <div class="list-group-item" ng-if="vm.selectedText">
+                <div ng-bind-html="vm.selectedText"></div>
+            </div>
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <textarea rows="10" class="form-control" ng-model="vm.comment">{{vm.comment}}</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</script>

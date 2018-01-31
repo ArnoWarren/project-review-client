@@ -1,0 +1,9 @@
+<growl-notifications style="z-index: 5">
+    <growl-notification ng-if="vm.showFlash && vm.flash" class="fading" on-close="vm.showFlash = false;" style="z-index: 5">
+        {{vm.flash}}
+    </growl-notification>
+
+    <growl-notification ng-if="vm.showFlash && vm.error" class="fading" ttl="10000" on-close="vm.showFlash = false;" style="z-index: 5">
+        <span class="error-notification" ng-bind-html="vm.error"></span>
+    </growl-notification>
+</growl-notifications>

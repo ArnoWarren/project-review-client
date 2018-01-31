@@ -1,0 +1,211 @@
+<title ncy-breadcrumb-last="{{user.fullName}}"></title>
+
+    <div class="panel-body">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <h5><i class="fa  fa-bars"></i> Properties</h5>
+            <div class="well well-lg">
+
+                <div class="form-group">
+                    <label>Login</label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="vm.user.login" required autofocus>
+                        <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="vm.user.firstName"  required>
+                        <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Surname</label>
+                    <div class="input-group">
+                    <input class="form-control" ng-model="vm.user.surname" required>
+                        <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="vm.user.emailAddress" type="email" min="0" required>
+                        <span class="input-group-addon"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Language</label>
+                    <ui-select ng-model="vm.user.language"
+                               theme="bootstrap"
+                               spinner-enabled="true"
+                               reset-search-input="false"
+                               title="Choose a language">
+                        <ui-select-match placeholder="Enter a language...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="language in vm.languages track by language.id"
+                                           refresh-delay="0">
+                            <div ng-bind-html="language.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <ui-select ng-model="vm.user.userStatus"
+                               theme="bootstrap"
+                               spinner-enabled="true"
+                               reset-search-input="false"
+                               title="Choose a status">
+                        <ui-select-match placeholder="Enter a status...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="status in vm.userStatuses track by status.id"
+                                           refresh="vm.loadStatuses()"
+                                           refresh-delay="0">
+                            <div ng-bind-html="status.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+
+                    <div class="form-group">
+                        <label>Job Role</label>
+                        <ui-select ng-model="vm.jobDescription"
+                                   theme="bootstrap"
+                                   reset-search-input="false"
+                                   title="Choose a job role">
+                            <ui-select-match   allow-clear='true' placeholder="Enter a job role...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="jobDescription in vm.jobDescriptions | filter: $select.search  track by jobDescription.id"
+                                               refresh="vm.loadJobDescriptions($select.search)"
+                                               refresh-delay="0">
+                                <div ng-bind-html="jobDescription.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                <div class="form-group">
+                    <label>Manager</label>
+                    <ui-select ng-model="vm.manager"
+                               theme="bootstrap"
+                               reset-search-input="true"
+                               title="Choose a manager">
+                        <ui-select-match  allow-clear='true' placeholder="Search for a manager...">{{$select.selected.firstName +' ' +$select.selected.surname}}</ui-select-match>
+                        <ui-select-choices repeat="manager in vm.managers | filter: $select.search  track by manager.id"
+                                           refresh="vm.loadManagers()"
+                                           refresh-delay="0">
+                            <div ng-bind-html="manager.firstName +' '  + manager.surname | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <ng-include src="'views/customFields/customFieldsTemplate.html'"></ng-include>
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <h5><i class="fa  fa-bars"></i> Talent</h5>
+            <div class="well well-lg">
+            <h5><i class="fa fa-user"></i> Quick Notes </h5>
+                    <div class="cssload-loader" ng-hide="vm.talentNotesLoaded"></div>
+                    <div class="list-group" ng-show="vm.talentNotesLoaded">
+                        <div class="list-group-item">
+                            <div class="input-group">
+                                <textarea class="form-control" ng-model="vm.quickNoteComment" placeholder="Quick Note"></textarea>
+                                <span class="input-group-addon btn btn-success" ng-click="vm.addQuickNote()" ng-disabled="!vm.quickNoteComment || !vm.quickNoteUser"><i class="fa fa-plus"></i> </span>
+                            </div>
+                        </div>
+                        <div class="list-group-item" ng-repeat="quickNote in vm.recentTalentNotesUpdated">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <span ng-click="quickNote.show = !quickNote.show" class="clickable">
+                                        {{quickNote.user.firstName}} {{quickNote.user.surname}}
+                                    </span>
+                                </div>
+                                <div class="col-xs-1">
+                                    <span class="btn btn-sm btn-default"
+                                          mwl-confirm
+                                          title="Please confirm you want to delete this quick note"
+                                          message="Are you sure you want to delete this quick note for {{quickNote.user.firstName}}?"
+                                          cancel-text="Cancel"
+                                          animation="true"
+                                          placement="top"
+                                          on-confirm="vm.deleteTalentNote(quickNote)"
+                                          confirm-button-type="danger"
+                                          cancel-button-type="default"><i class="glyphicon glyphicon-trash"></i></span>
+                                </div>
+                                <div class="col-xs-12 quick-note-div" ng-if="quickNote.show">
+                                    <div class="well well-sm">
+                                    <p ng-bind-html="quickNote.note"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 text-muted">
+                                    By {{quickNote.createdBy.firstName}} {{quickNote.createdBy.surname}}
+                                </div>
+                                <div class="col-xs-6 text-right text-muted">
+                                    {{quickNote.lastUpdated}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <uib-tabset active="active">
+                    <uib-tab index="0" heading='PDR Responses'>
+                        <h5><i class="fa fa-car"></i> Mobility</h5>
+                        <div class="well well-lg">
+                            <div ng-bind-html="vm.evaluationAnswers.mobilityQuestionResponse"></div>
+
+                        </div>
+                        <h5><i class="fa fa-building"></i> Aspired Position</h5>
+                        <div class="well well-lg">
+                            <div ng-bind-html="vm.evaluationAnswers.aspiredPositionQuestionResponse"></div>
+
+                        </div>
+                        <h5><i class="fa fa-cogs"></i> Development Plans</h5>
+                        <div class="well well-lg">
+                            <div ng-bind-html="vm.evaluationAnswers.developmentPlansQuestionResponse"></div>
+
+                        </div>
+                        <h5><i class="fa fa-commenting"></i> Language</h5>
+                        <div class="well well-lg">
+                            <div ng-bind-html="vm.evaluationAnswers.languageQuestionResponse"></div>
+
+                        </div>
+                        <h5><i class="fa fa-refresh"></i> Overall Rating</h5>
+                        <div class="well well-lg">
+                            <div ng-bind-html="vm.evaluationAnswers.overallRatingQuestionResponse"></div>
+
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="1" heading='Training Goals'>
+                        <div class="list-group">
+                            <div class="list-group-item" ng-repeat="trainingGoal in vm.trainingGoals">
+                                <div class="list-group-item-heading"><h4>{{trainingGoal.name}}</h4>
+                                <hr></div>
+                                <p>{{trainingGoal.comments}}</p>
+                                <div class="text-muted">Achieve by : <span>{{trainingGoal.achieveBy}}</span></div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+
+            <h5><i class="fa fa-book"></i> Succession Plans <i class="badge" ng-cloak>{{vm.clientss.length}}</i>
+                <span ng-show="vm.clientss.totalCount > 10"> of {{vm.clientss.totalCount}}</span></h5>
+            <div class="well well-lg">
+
+
+            </div>
+
+        </div>
+        <div ng-show="vm.user.hasManagerPermission">
+            <h5><i class="fa fa-user"></i> Manages <i class="badge">{{vm.usersMemberService.usersTotalCount}}</i> </h5>
+                <ng-include src="'views/users/advancedUserSearch/linkedUsers.html'"></ng-include>
+        </div>
+        </div>
+    </div>
+
+
+
+<ng-include src="'views/users/advancedUserSearch/advancedUserSearchDialog.html'"></ng-include>

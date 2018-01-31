@@ -1,0 +1,54 @@
+<ng-include src="'views/notifications/growl.html'"></ng-include>
+
+<div class="container margin-top-20 " ng-init="vm.init()">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            {{vm.succession.status | translate}} Succession Plan for {{vm.prClient.firstName}} {{vm.prClient.surname}}
+
+            <div class="text-right col-xs-12" style="margin-top: -20px;">
+                <label class="pull-right" ng-if="vm.rev">Revision {{vm.rev.timestamp | date : 'yyyy-mm-dd HH:mm'}}</label>
+                <button class="btn btn-sm btn-primary action" ng-class="{'active' : vm.succession.status=='ACTIVE'}">
+                    <i class="fa fa-check"></i> Active
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <h5><i class="fa  fa-bars"></i> Properties</h5>
+                <div class="well well-lg">
+                    <div class="well">
+                        CRUD Fields
+                        String name;
+                        String projectNumber;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    <div class="panel-footer form-panel-footer">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"><span
+                ng-bind-html="alert.msg"></span></uib-alert>
+        <div class="uib-button-bar">
+            <a class="btn btn-sm btn-danger"
+               mwl-confirm
+               title="Please confirm you want to delete this succession plan"
+               message="Are you sure you want to delete this succession plan ?"
+               cancel-text="Cancel"
+               animation="true"
+               placement="top"
+               on-confirm="vm.delete()"
+               confirm-button-type="danger"
+               cancel-button-type="default" ><i class="glyphicon glyphicon-trash" ></i> Delete</a>
+            <button class="btn btn-sm btn-primary" ng-click="vm.back()"><i class="glyphicon glyphicon-remove"></i> Back</button>
+            <button class="btn btn-sm btn-success" ng-click="vm.save()"  ><i class="fa fa-save"></i> Save</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+

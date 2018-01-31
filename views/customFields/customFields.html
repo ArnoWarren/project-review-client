@@ -1,0 +1,72 @@
+<div class="container margin-top-20 " data-ng-init="vm.init()">
+  <div class="panel panel-primary">
+    <div class="panel-heading clearfix">
+      Manage Custom Fields
+        <div class="pull-right">
+            <button class="btn btn-sm btn-primary action" ng-click="vm.back()"><i class="glyphicon glyphicon-remove"></i> Back</button>
+            <a href="#!/customfield/0" class="btn btn-sm btn-primary action"><i class="glyphicon glyphicon-plus"></i> Add</a>
+        </div>
+    </div>
+    <div class="panel-body crud-list">
+
+      <div class="list-group">
+          <div class="row list-group-item">
+              <div class="col-xs-4  left-padding-small">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.nameFilter" placeholder="Custom field name" ng-model-options="{debounce: 500}">
+
+                    <span class="input-group-addon"  ng-if="vm.nameFilter" ng-click="vm.nameFilter = null;vm.filter()">
+                            <span class="fa fa-remove" style="color:red"></span>
+                      </span>
+
+                    <span class="input-group-addon" ng-click="vm.sortBy('name')">
+                            <span ng-if="vm.propertyName == 'name' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'name' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'name'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.descriptionFilter" placeholder="Custom field description" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.descriptionFilter" ng-click="vm.descriptionFilter = null;vm.filter()">
+                            <span class="fa fa-remove" style="color:red"></span>
+                      </span>
+
+                    <span class="input-group-addon" ng-click="vm.sortBy('description')">
+                            <span ng-if="vm.propertyName == 'description' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'description' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'description'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="vm.typeFilter" placeholder="Custom field type" ng-model-options="{debounce: 500}">
+                    <span class="input-group-addon"  ng-if="vm.typeFilter" ng-click="vm.typeFilter = null;vm.filter()">
+                            <span class="fa fa-remove" style="color:red"></span>
+                      </span>
+
+                    <span class="input-group-addon" ng-click="vm.sortBy('clazz')">
+                            <span ng-if="vm.propertyName == 'clazz' && !vm.reverse" class="fa fa-caret-down" ></span>
+                            <span ng-if="vm.propertyName == 'clazz' && vm.reverse" class="fa fa-caret-up"></span>
+                          <span ng-if="vm.propertyName != 'clazz'" class="fa fa-sort"></span>
+                      </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row list-group-item item-row" total-items="vm.totalCount" current-page="vm.currentPage" dir-paginate="customField in vm.customFields | filter:vm.customFieldFilter | itemsPerPage:vm.numberOfElements">
+          <a href="#!/customfield/{{customField.id}}" class="object-link">
+              <div class="col-xs-4">{{customField.name}}</div>
+              <div class="col-xs-4">{{customField.description}}</div>
+              <div class="col-xs-4">{{customField.clazz | translate}}</div>
+          </a>
+        </div>
+      </div>
+        <div class="text-center">
+        <dir-pagination-controls max-size="15" on-page-change="vm.pageChanged(newPageNumber)"></dir-pagination-controls>
+        </div>
+    </div>
+    </div>
+</div>

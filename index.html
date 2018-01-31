@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Project Review 1.0.0</title>
+  <link rel="icon" type="image/ico" href="img/favico.ico">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css">
+  <link rel="stylesheet" href="bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/angucomplete-alt/angucomplete-alt.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.min.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css">
+  <link rel="stylesheet" href="bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css">
+  <link rel="stylesheet" href="client.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="bower_components/angular-moment-picker/dist/angular-moment-picker.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body class="background">
+<div  class="navbar navbar-default ng-cloak" style="margin-left: 0;margin-right: 0" ng-cloak ng-hide="isViewer()">
+  <div class="container-fluid" style="margin-left: 0;margin-right: 0">
+    <div class="navbar-header">
+      <a class="navbar-brand"  ng-href="{{admin() ? '#!/clients' : '#!/dashboard'}}"><img src="img/logo.jpg" class="logo"></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"  ng-click="isCollapsed = !isCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+  <div class="collapse container navbar-collapse ng-cloak" uib-collapse="isCollapsed" ng-if="isAuthed()" ng-cloak="" >
+      <div class="navbar-brand pull-right">Project Review</div>
+    <ul class="menu ng-cloak nav navbar-nav"  ng-cloak  >
+      <li class="ng-cloak" ng-class="{'active' : activeMenu == 'home'}" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><a href="#!/">Dashboard</a></li>
+      <li class="ng-cloak" ng-if="hasAnyPermission(['hr', 'super'])" ng-class="{'active' : activeMenu == 'talents' || activeMenu == 'talent'}" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><a href="#!/projects">Projects</a></li>
+      <li class="ng-cloak" ng-if="hasAnyPermission(['hr', 'super', 'manager'])" ng-class="{'active' : activeMenu == 'clients' || activeMenu == 'client'}" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><a href="#!/clients">Clients</a></li>
+      <li class="ng-cloak" ng-if="hasAnyPermission(['hr', 'super'])" ng-class="{'active' : activeMenu == 'admin'}" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><a href="#!/admin"> Administration</a></li>
+      <li class="ng-cloak" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><a class="user-logout" href="#!/login">Logout</a></li>
+      <li class="ng-cloak user-account" data-toggle="collapse" data-target=".navbar-collapse.in" ng-click="isCollapsed = !isCollapsed"><span class="clickable" ng-cloak ng-click="toggleInfoPanel()"><i class="glyphicon glyphicon-user"></i> {{getCurrentUser().name}}</span></li>
+    </ul>
+  </div>
+  </div>
+
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+</div>
+    <div class="container-fluid" >
+      <div class="container breadcrumb-container ng-cloak" ng-if="isAuthed()"  ng-cloak ng-hide="isViewer()">
+        <ul class="breadcrumb"  >
+          <div ncy-breadcrumb></div>
+        </ul>
+
+      </div>
+
+      <ui-view class="ng-view body-bg" ng-class="{'loggedInBody' : isAuthed()}"></ui-view>
+
+    </div>
+
+
+
+
+
+  <div class="footer ng-cloak" ng-cloak>
+    <div class="col-xs-4">
+       Project Review v<span app-version>1.0.0</span>
+    </div>
+    <div class="col-xs-4">
+      <uib-progressbar class="progress" ng-if="uploadProgress > 0" value="uploadProgress" type="success"><span style="color:white; white-space:nowrap;">{{uploadProgress}}% {{uploadStatus}}</span></uib-progressbar>
+    </div>
+    <div class="col-xs-4">
+    </div>
+  </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+ <script src='bower_components/jquery/dist/jquery.min.js'></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+  <script src="bower_components/angucomplete-alt/angucomplete-alt.js"></script>
+  <script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.min.js"></script>
+  <script src="bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+  <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.min.js"></script>
+  <script src="bower_components/angular-growl-notifications/dist/angular-growl-notifications.min.js"></script>
+  <script src="bower_components/angular-scroll/angular-scroll.min.js"></script>
+  <script src="bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>
+  <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+  <script src="bower_components/angular-ui-scrollpoint/dist/scrollpoint.min.js"></script>
+  <script src="bower_components/angular-virtual-scroll/angular-virtual-scroll.min.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-ui-select/dist/select.min.js"></script>
+  <script src="bower_components/restangular/dist/restangular.min.js"></script>
+  <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+  <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+  <script src="bower_components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
+  <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+  <script src="bower_components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+  <script src='bower_components/angular-touch/angular-touch.min.js'></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/angular-moment-picker/dist/angular-moment-picker.js"></script>
+  <script src="bower_components/angular-clipboard/angular-clipboard.js"></script>
+    <script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+    <script src='bower_components/crypto-js/crypto-js.js'></script>
+    <script src='bower_components/crypto-js/sha256.js'></script>
+<!--<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>-->
+
+  <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+  <script src="translationEn.js"></script>
+  <script src="routes.js"></script>
+  <script src="systemConfig.js"></script>
+  <script src="app.js"></script>
+  <script src="views/actions/actions.js"></script>
+  <script src="views/talent/talents.js"></script>
+  <script src="factories.js"></script>
+  <script src="services/authService.js"></script>
+  <script src="views/login/login.js"></script>
+  <script src="views/login/autoAuth.js"></script>
+  <script src="views/prProject/prProjects.js"></script>
+  <script src="services/Base64.min.js"></script>
+
+
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/froala_style.min.css">
+  <link rel="stylesheet" href="bower_components/froala-wysiwyg-editor/css/plugins/table.min.css">
+  <script src='bower_components/angular-froala/src/angular-froala.js'></script>
+  <script src='bower_components/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js'></script>
+  <script src='bower_components/froala-wysiwyg-editor/js/plugins/table.min.js'></script>
+  <script src='bower_components/froala-wysiwyg-editor/js/plugins/quick_insert.min.js'></script>
+  <script src='bower_components/froala-wysiwyg-editor/js/plugins/word_paste.min.js'></script>
+  <script src='bower_components/froala-wysiwyg-editor/js/plugins/inline_style.min.js'></script>
+  <script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
+  <script src="bower_components/pdfmake/build/pdfmake.min.js"></script>
+  <script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
+  <script src="html2canvas.min.js"></script>
+
+  <ng-include src="'views/infoCenter.html'" ng-if="isAuthed()"></ng-include>
+<growl-notifications ng-if="showFlash"  ng-cloak>
+  <growl-notification ng-if="showFlash" class="fading" >
+    {{flash}}
+  </growl-notification>
+</growl-notifications>
+<ng-include src="'views/inlineCommentsModal.html'"></ng-include>
+<ng-include src="'views/inlineCommentsModalView.html'"></ng-include>
+</body>
+</html>

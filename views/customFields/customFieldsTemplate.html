@@ -1,0 +1,38 @@
+<div class="form-group" ng-repeat="customFieldValue in vm.customFieldValues" ng-if="!customFieldValue.customField.hidden">
+    <label>{{customFieldValue.customField.name}}</label>
+    <div ng-class="{'input-group' : customFieldValue.customField.mandatory}" ng-if="!customFieldValue.customField.dateField">
+
+        <textarea class="form-control" rows="5" ng-model="customFieldValue.value" ng-if="customFieldValue.customField.textArea" ng-required="customFieldValue.customField.mandatory"></textarea>
+        <input class="form-control" ng-model="customFieldValue.value" type="text" ng-if="!customFieldValue.customField.dateField && !customFieldValue.customField.textArea && !customFieldValue.customField.customFieldOptions" ng-required="customFieldValue.customField.mandatory">
+
+        <ui-select ng-model="customFieldValue.value"
+                   theme="bootstrap"
+                   ng-required="customFieldValue.customField.mandatory"
+                   on-select="setCustomFieldOption($select.selected,customFieldValue)"
+                   ng-if="customFieldValue.customField.customFieldOptions && !customFieldValue.customField.dateField && !customFieldValue.customField.textArea"
+                   reset-search-input="false"
+                   title="Select a {{customFieldValue.customField.name}}">
+            <ui-select-match allow-clear='true' placeholder="Select a {{customFieldValue.customField.name}}...">{{$select.selected}}</ui-select-match>
+            <ui-select-no-choice>
+                No {{customFieldValue.customField.name}}
+            </ui-select-no-choice>
+            <ui-select-choices repeat="customFieldOption in customFieldValue.customField.customFieldOptions track by customFieldOption.value" remove-selected="true">
+                <div ng-bind-html="customFieldOption.value | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <span class="input-group-addon" ng-if="customFieldValue.customField.mandatory"><i class="input-error glyphicon glyphicon-exclamation-sign"></i> <i class="input-ok fa fa-check-circle"></i></span>
+    </div>
+
+    <div ng-if="customFieldValue.customField.dateField">
+        <div class="input-group" moment-picker="customFieldValue.value" ng-required="customFieldValue.customField.mandatory" format="DD-MM-YYYY">
+            <span class="input-group-addon input-error"  ng-if="customFieldValue.customField.mandatory && !customFieldValue.value" ><i class="glyphicon glyphicon-exclamation-sign"></i> </span>
+            <label class="form-control" >{{customFieldValue.value | date:"dd-MM-yyyy"}}</label>
+            <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="toggleCustomFieldDateSelector(customFieldValue.customField)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </div>
+    </div>
+
+
+
+</div>

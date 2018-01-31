@@ -1,0 +1,64 @@
+<script type="text/ng-template" id="inlineCommentsModalView.html">
+
+
+            <div class="panel panel-primary" style="margin-bottom: 0;">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Comments
+                    <span class="pull-right">
+                            <button class="btn btn-sm btn-primary action" ng-click="cancel()"><i
+                                    class="glyphicon glyphicon-remove"></i> Cancel</button>
+                        </span>
+                </div>
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="clearfix right" ng-class="data.user.id == data.comment.creator.id ? 'right' : 'left'">
+
+                                <span class="chat-img" ng-class="data.user.id == data.comment.creator.id ? 'pull-right' : 'pull-left'">
+                                    <img src="http://placehold.it/50/FA6F57/fff&text={{data.user.id == data.comment.creator.id ? 'ME' : data.comment.creator.firstName.subString(0,2)}}" alt="User Avatar" class="img-circle"/>
+                                </span>
+
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{data.comment.creator.fullName}}</strong>
+                                    <small class="text-muted" ng-class="data.user.id == data.comment.creator.id ? 'pull-right' : 'pull-left'">
+                                        <span class="glyphicon glyphicon-time"></span>{{data.comment.lastUpdated}}
+                                    </small>
+                                </div>
+                                <p>
+                                    {{data.comment.name}}
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix right" ng-class="data.user.id == comment.creator.id ? 'right' : 'left'" ng-repeat="comment in data.comments track by $index">
+                                <span class="chat-img" ng-class="data.user.id == comment.creator.id ? 'pull-right' : 'pull-left'">
+                                    <img src="http://placehold.it/50/FA6F57/fff&text={{data.user.id == data.comment.creator.id ? 'ME' : comment.creator.firstName.subString(0,2)}}" alt="User Avatar" class="img-circle"/>
+                                </span>
+
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{comment.creator.fullName}}</strong>
+                                    <small class="text-muted" ng-class="data.user.id == comment.creator.id ? 'pull-right' : 'pull-left'">
+                                        <span class="glyphicon glyphicon-time"></span>{{comment.lastUpdated}}
+                                    </small>
+                                </div>
+                                <p>
+                                    {{comment.name}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" ng-model="data.commentText" type="text" class="form-control input-sm"
+                               placeholder="Type your comment here..."/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="ok(data.commentText)">
+                                Add Comment</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+</script>
