@@ -303,6 +303,32 @@ angular.module('myApp', [
 
 
 function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sce, $uibModal, Restangular, Upload, server, editableOptions, editableThemes, $state, $transitions) {
+    if(statics.sso){
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", function(){
+            var resp = JSON.parse(oReq.responseText);
+            if (resp.token) {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + resp.token;
+                $localStorage.currentUser = {
+                    username: resp.user.username,
+                    token: resp.token,
+                    project: resp.user.projectName,
+                    email: resp.user.email,
+                    manager: resp.user.manager,
+                    avatar: resp.user.avatar,
+                    lastLoggedIn: resp.user.lastLogin,
+                    id: resp.user.id,
+                    name: resp.user.firstname + ' ' + resp.user.lastname,
+                    authorities: resp.user.authorities,
+                    customFields: resp.user.customFieldValues
+                };
+                $rootScope.initUser();
+                return $http.defaults.headers.common.Authorization;
+            }
+        });
+        oReq.open("GET", server.uri+'/auth/validate');
+        oReq.send();
+    }
     $rootScope.datePickerOpen = [];
     $rootScope.activeMenu = $state.name;
     $rootScope.allFarmsItem = {farmOrUnitName:'All Farms', id:0};
@@ -334,34 +360,7 @@ function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sc
         formats:'yyyy-MM-dd',
         startingDay: 1
     };
-    $rootScope.ssoSignIn = function(){
-        originalURL = $location.url();
-        $http.get(server.uri + '/auth/validate').then(function (resp) {
-            if (resp.status != 200) {
-                $location.path('/login');
-            }else{
-                $http.defaults.headers.common.Authorization = 'Bearer ' + resp.data.token;
-                $localStorage.currentUser = {
-                    username: resp.data.user.username,
-                    token: resp.data.token,
-                    project: resp.data.user.projectName,
-                    email: resp.data.user.email,
-                    manager: resp.data.user.manager,
-                    avatar: resp.data.user.avatar,
-                    lastLoggedIn: resp.data.user.lastLogin,
-                    id: resp.data.user.id,
-                    name: resp.data.user.firstname + ' ' + resp.data.user.lastname,
-                    authorities: resp.data.user.authorities,
-                    customFields: resp.data.user.customFieldValues
-                };
-                $rootScope.initUser();
-            }
-        }, function (error) {
-            console.log(error)
-            originalURL = $location.url();
-            $location.path('/login');
-        });
-    }
+
 
     $rootScope.isViewer = function(){
         return $location.path().indexOf('technicalFileViewer') >= 0;
@@ -414,10 +413,7 @@ function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sc
     }
 
     $rootScope.init = function(){
-        if(!$localStorage.currentUser){
-        if (statics.sso) {
-            $rootScope.ssoSignIn();
-        } else {
+        if(!statics.sso && !$localStorage.currentUser){
             if ($localStorage.currentUser && $localStorage.currentUser.token) {
                 $http.get(server.uri + 'rest/auth/validate/true').then(function (resp) {
                     var response = angular.fromJson(resp.data);
@@ -606,9 +602,7 @@ function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sc
         }
 
         var restrictedPage =  publicPages.indexOf(pathStart) === -1 && publicPages.indexOf($location.path()) === -1;
-        if (statics.sso && restrictedPage && !$localStorage.currentUser) {
-            $rootScope.ssoSignIn();
-        }else{
+        if (!statics.sso){
 
             if (restrictedPage && !$localStorage.currentUser) {
                 $location.path('/login')
