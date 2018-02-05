@@ -326,7 +326,7 @@ function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sc
                 return $http.defaults.headers.common.Authorization;
             }
         });
-        oReq.open("GET", server.uri+'/auth/validate');
+        oReq.open("GET", server.uri+'/auth/validate', false);
         oReq.send();
     }
     $rootScope.datePickerOpen = [];
@@ -413,25 +413,6 @@ function run($rootScope, $window, $http, $location, $timeout, $localStorage, $sc
     }
 
     $rootScope.init = function(){
-        if(!statics.sso && !$localStorage.currentUser){
-            if ($localStorage.currentUser && $localStorage.currentUser.token) {
-                $http.get(server.uri + 'rest/auth/validate/true').then(function (resp) {
-                    var response = angular.fromJson(resp.data);
-                    $rootScope.initUser();
-                    if (resp.status !== 200) {
-                        $location.path('/login')
-                    }
-                });
-            } else {
-                var publicPages = ['/login'];
-                var restrictedPage = $location.path().indexOf('aauth') <= 0 && publicPages.indexOf($location.path()) === -1 && $location.path().length > 1;
-                if (restrictedPage) {
-                    $location.path('/login')
-                }
-
-            }
-        }
-        }
     };
     $rootScope.userSearchURL = server.uri + '/tm/talentNote/user/search/';
 
