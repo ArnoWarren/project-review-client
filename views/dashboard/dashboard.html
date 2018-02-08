@@ -1,8 +1,356 @@
 <ng-include src="'views/notifications/growl.html'"></ng-include>
 
-<div class="margin-top-20 container-fluid"  data-ng-init="vm.init()">
-    <div class="col-xs-12 col-lg-3"  ng-if="hasAnyPermission(['hr', 'super'])">
-        <div class="panel panel-primary dashboard-summary-grid" >
+<div class="container-fluid">
+    <div class="col-xs-4">
+        <button type="button" class="btn btn-primary">All</button>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                class="fa fa-filter"></i> Project Manager
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                class="fa fa-filter"></i> Project Director
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+    </div>
+    <div class="col-xs-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search</button>
+      </span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid">
+    <div class="col-xs-7">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Project Filters</div>
+        </div>
+        <div class="panel-body" style="background-color: #FFFFFF">
+            <div align="center">
+                <button class="btn btn-secondary" type="button"><i class="fa fa-close"></i> Clear Filters</button>
+
+                <button type="button" class="btn btn-primary"><i
+                        class="fa fa-star"></i> Favourites
+                </button>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                        class="fa fa-filter"></i> Service Group
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                        class="fa fa-filter"></i> Contract Type
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                        class="fa fa-filter"></i> Location
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                        class="fa fa-filter"></i> Risk
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i
+                        class="fa fa-filter"></i> Open/Closed/All
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Reports</div>
+        </div>
+        <div class="panel-body" style="background-color: #FFFFFF">
+            <div align="center">
+                <button type="button" class="btn btn-primary">Project Portfolio</button>
+                <button type="button" class="btn btn-primary">Project Portfolio Plus</button>
+                <button type="button" class="btn btn-primary">Ricardo PLC</button>
+                <button type="button" class="btn btn-primary">All Data</button>
+            </div>
+        </div>
+        <!--<div class="panel-footer">-->
+        <!--</div>-->
+    </div>
+</div>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Total Budget Costs</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Total Costs to Date</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Total Estimate Cost To Complete</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-2 bg-primary text-white" style="width: 10%"><label>Total Costs Estimated At Completion</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Total Order Value</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-2 bg-primary text-white" style="width: 10%"><label>Total Current Order Value</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Budget Margin</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-2 bg-primary text-white" style="width: 10%"><label>Margin Estimated at Completion</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"><label style="color: #FFFFFF">AROC-Unbilled</label></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-2" style="width: 10%"><label style="color: #FFFFFF">Debt-Unpaid Invoices</label></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Current</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Current</label></div>
+        <div class="col-xs-2" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"><label style="color: #FFFFFF">Invoicing</label></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-2" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Total Invoiced To Date</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>1-30 Days Overdue</label></div>
+        <div class="col-xs-2" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Planned Invoicing Month</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>30-60 Days Overdue</label></div>
+        <div class="col-xs-2" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Planned Invoicing Month+1</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>60-90 Days Overdue</label></div>
+        <div class="col-xs-2" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>Planned Invoicing Month+2</label></div>
+        <div class="col-xs-1" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%"><label>>90 Days Overdue</label></div>
+        <div class="col-xs-2" style="width: 10%"><input type="text"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1 bg-primary text-white" style="width: 10%" align="center"><label style="color: #FFFFFF">Health Check Status</label></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-2" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 10%"></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-1" style="width: 5%"></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 1</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 2</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 3</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 4</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 5</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 6</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 7</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 8</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 9</label></div>
+        <div class="col-xs-1" style="width: 9%"><label style="color: #FFFFFF">HC 10</label></div>
+        <div class="col-xs-1" style="width: 5%"></div>
+    </div>
+    <!--<div class="row">-->
+        <!--<div class="col-xs-1" style="width: 2%"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 4.5%"><input type="text"></div>-->
+        <!--<div class="col-xs-1" style="width: 2%"></div>-->
+    <!--</div>-->
+    <div class="row">
+        <div class="col-xs-1" style="width: 2%"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+        <div class="col-xs-1" style="width: 9%"><input type="text"><input type="text"></div>
+    </div>
+    <br>
+
+</div>
+<br>
+<div class="container-fluid">
+    <table class="table table-bordered table-hover ">
+        <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">Project Number</th>
+            <th scope="col">Project Name</th>
+            <th scope="col">Project Manager</th>
+            <th scope="col">Order Value</th>
+            <th scope="col">EAC Cost</th>
+            <th scope="col">EAC Margin</th>
+            <th scope="col">Next Review Due Date</th>
+            <th scope="col" style="width: 3%">HC 1</th>
+            <th scope="col" style="width: 3%">HC 2</th>
+            <th scope="col" style="width: 3%">HC 3</th>
+            <th scope="col" style="width: 3%">HC 4</th>
+            <th scope="col" style="width: 3%">HC 5</th>
+            <th scope="col" style="width: 3%">HC 6</th>
+            <th scope="col" style="width: 3%">HC 7</th>
+            <th scope="col" style="width: 3%">HC 8</th>
+            <th scope="col" style="width: 3%">HC 9</th>
+            <th scope="col" style="width: 3%">HC 10</th>
+        </tr>
+        </thead>
+
+        <tbody style="background-color: #FFFFFF">
+        <tr>
+            <td>12345</td>
+            <td>Test 12345</td>
+            <td>Test ABCDE</td>
+            <td>Test John</td>
+            <td>123.45</td>
+            <td>12%</td>
+            <td>12/12/9999</td>
+            <td style="background-color:red"></td>
+            <td style="background-color:green"></td>
+            <td style="background-color:green"></td>
+            <td style="background-color:orange"></td>
+            <td style="background-color:orange"></td>
+            <td style="background-color:green"></td>
+            <td style="background-color:green"></td>
+            <td style="background-color:green"></td>
+            <td style="background-color:red"></td>
+            <td style="background-color:green"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="margin-top-20 container-fluid" data-ng-init="vm.init()">
+    <div class="col-xs-12 col-lg-3" ng-if="hasAnyPermission(['hr', 'super'])">
+        <div class="panel panel-primary dashboard-summary-grid">
             <div class="panel-heading">
                 {{vm.projectCount}} Projects
                 <i class="fa fa-building pull-right"></i>
@@ -11,7 +359,8 @@
                 <div class="well-sm">
                     <div class="cssload-loader" ng-hide="vm.recentProjectsUpdates"></div>
                     <div class="list-group">
-                        <a ng-click="activeMenu = 'Projects'" href="#!/projects/{{project.id}}" class="list-group-item no-overflow" ng-repeat="project in vm.recentProjectsUpdates">
+                        <a ng-click="activeMenu = 'Projects'" href="#!/projects/{{project.id}}"
+                           class="list-group-item no-overflow" ng-repeat="project in vm.recentProjectsUpdates">
                             <div class="list-group-item-heading"><h6>{{project.name}}</h6></div>
                             <p class="text-muted">{{project.client.name}}</p>
                         </a>
@@ -21,14 +370,15 @@
 
             <div class="panel-footer">
                 <div class="uib-button-bar text-right">
-                    <a href="#!/projects" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Project'"><i class="fa fa-list"></i> List</a>
+                    <a href="#!/projects" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Project'"><i
+                            class="fa fa-list"></i> List</a>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <div class="col-xs-12 col-lg-3"  ng-if="hasAnyPermission(['manager', 'hr', 'super'])">
+    <div class="col-xs-12 col-lg-3" ng-if="hasAnyPermission(['manager', 'hr', 'super'])">
         <div class="panel panel-primary dashboard-summary-grid">
             <div class="panel-heading">
                 {{vm.clientsCount}} Clients
@@ -36,10 +386,11 @@
             </div>
             <div class="panel-body" style="">
                 <div class="well-sm">
-                    <div class="cssload-loader"  ng-hide="vm.recentClientsUpdated" ></div>
+                    <div class="cssload-loader" ng-hide="vm.recentClientsUpdated"></div>
 
                     <div class="list-group">
-                        <a href="#!/clients/{{clients.id}}" class="list-group-item no-overflow" ng-repeat="clients in vm.recentClientsUpdated">
+                        <a href="#!/clients/{{clients.id}}" class="list-group-item no-overflow"
+                           ng-repeat="clients in vm.recentClientsUpdated">
                             <div class="list-group-item-heading"><h6>{{clients.name}}</h6></div>
                             <p>
                                 {{clients.user.firstName +' ' +clients.user.surname}}
@@ -51,7 +402,7 @@
 
             <div class="panel-footer">
                 <div class="uib-button-bar text-right">
-                    <a href="#!/clients" class="btn btn-sm btn-primary" ><i class="fa fa-list"></i> List</a>
+                    <a href="#!/clients" class="btn btn-sm btn-primary"><i class="fa fa-list"></i> List</a>
                     <a href="#!/client/0" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create</a>
                 </div>
 
@@ -60,16 +411,16 @@
     </div>
 
 
-
     <div class="col-xs-12 col-lg-3">
-        <div class="panel panel-primary dashboard-summary-grid" >
+        <div class="panel panel-primary dashboard-summary-grid">
             <div class="panel-heading">
                 {{vm.notificationCount}} Notifications
                 <i class="fa fa-inbox pull-right"></i>
             </div>
             <div class="panel-body" style="">
                 <div class="well-sm">
-                    <div class="cssload-loader" ng-hide="vm.recentNotificationUpdated || vm.recentNotificationUpdated == 0"></div>
+                    <div class="cssload-loader"
+                         ng-hide="vm.recentNotificationUpdated || vm.recentNotificationUpdated == 0"></div>
                     <div class="list-group">
                         <div class="list-group-item" ng-repeat="notification in vm.recentNotificationUpdated">
                             <div class="row">
@@ -79,7 +430,9 @@
                                     </span>
                                 </div>
                                 <div class="col-xs-1">
-                                    <span class="btn btn-sm btn-default" ng-click="$event.preventDefault();vm.deleteMessage(notification)"><i class="glyphicon glyphicon-trash"></i></span>
+                                    <span class="btn btn-sm btn-default"
+                                          ng-click="$event.preventDefault();vm.deleteMessage(notification)"><i
+                                            class="glyphicon glyphicon-trash"></i></span>
                                 </div>
                                 <div class="col-xs-12">
                                     <div ng-bind-html="notification.message" ng-if="notification.show"></div>
@@ -87,7 +440,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-6 text-muted">
-                                    <a href="#!/talent/{{notification.creator.id}}" class="fa fa-user-circle clickable"></a> {{notification.creator.firstName}} {{notification.creator.lastName}}
+                                    <a href="#!/talent/{{notification.creator.id}}"
+                                       class="fa fa-user-circle clickable"></a> {{notification.creator.firstName}}
+                                    {{notification.creator.lastName}}
                                 </div>
                                 <div class="col-xs-6 text-right text-muted">
                                     {{notification.createdOn}}
@@ -100,7 +455,8 @@
 
             <div class="panel-footer">
                 <div class="uib-button-bar text-right">
-                    <a href="#!/notifications" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Notification'"><i class="fa fa-list"></i> List</a>
+                    <a href="#!/notifications" class="btn btn-sm btn-primary" ng-click="activeMenu = 'Notification'"><i
+                            class="fa fa-list"></i> List</a>
                 </div>
 
             </div>
